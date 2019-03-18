@@ -6,6 +6,8 @@ It implements two modules for [Duct](https://github.com/duct-framework/duct).
 
 ## Installation
 
+[![Clojars Project](https://img.shields.io/clojars/v/hydrogen/module.cljs.svg)](https://clojars.org/hydrogen/module.cljs)
+
 To install, add the following to your project `:dependencies`:
 
     [hydrogen/module.cljs "0.1.0"]
