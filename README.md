@@ -1,39 +1,30 @@
-# Duct module.cljs
+# hydrogen.module.cljs for Duct
 
-[![Build Status](https://travis-ci.org/duct-framework/module.cljs.svg?branch=master)](https://travis-ci.org/duct-framework/module.cljs)
-
-A [Duct][] module that adds support for compiling ClojureScript for
-production and development.
-
-[duct]: https://github.com/duct-framework/duct
+It implements two modules for [Duct](https://github.com/duct-framework/duct).
+`hydrogen.module.cljs.core` brings in config for doing SPAs and `hydrogen.module.cljs.session` further enriches it
+ to support OIDC-based session management.
 
 ## Installation
 
 To install, add the following to your project `:dependencies`:
 
-    [duct/module.cljs "0.4.0"]
+    [hydrogen/module.cljs "0.1.0"]
 
 ## Usage
 
-To add this module to your configuration, add the `:duct.module/cljs`
-key to your configuration. You'll need to specify your main
-ClojureScript namespace via the `:main` key:
-
+For SPA:
 ```edn
-{:duct.module/cljs {:main foo.client}}
+{:hydrogen.module.cljs/core {}}
 ```
 
-This sets up the [compiler.cljs][] key for compiling wvia `lein run
-:duct/compiler`, and the [server.figwheel][] key for dynamically
-reloading ClojureScript files during development when calling
-`(reset)` in the REPL.
-
-[compiler.cljs]:   https://github.com/duct-framework/compiler.cljs
-[server.figwheel]: https://github.com/duct-framework/server.figwheel
+For SPA with session management:
+```edn
+{:hydrogen.module.cljs/core {}
+ :hydrogen.module.cljs/session {}}
+```
 
 ## License
 
-Copyright © 2017 James Reeves
+Copyright (c) Magnet S Coop 2019.
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+The source code for the library is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
