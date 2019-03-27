@@ -56,6 +56,7 @@
        :duct.middleware.web/format {}
 
        (keyword (str project-ns ".handler/root")) {}
+       (keyword (str project-ns ".handler/api")) {}
 
        :duct.compiler/sass {:source-paths ["resources"]
                             :output-path "target/resources"}
