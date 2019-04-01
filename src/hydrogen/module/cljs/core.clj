@@ -55,8 +55,8 @@
        :duct.handler/root {:middleware [(ig/ref :duct.middleware.web/format)]}
        :duct.middleware.web/format {}
 
-       (keyword (str project-ns ".handler/root")) {}
-       (keyword (str project-ns ".handler/api")) {}
+       (keyword (str project-ns ".static/root")) {}
+       (keyword (str project-ns ".api/example")) {}
 
        :duct.compiler/sass {:source-paths ["resources"]
                             :output-path "target/resources"}

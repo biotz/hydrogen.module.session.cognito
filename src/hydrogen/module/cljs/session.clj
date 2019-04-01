@@ -10,10 +10,10 @@
     :secret-access-key (env/env '["AWS_SECRET_ACCESS_KEY" Str])
     :default-region (env/env '["AWS_DEFAULT_REGION" Str :or "eu-west-1"])}
 
-   (keyword (str project-ns ".handler/api"))
+   (keyword (str project-ns ".api/example"))
    {:auth-middleware (ig/ref :duct.middleware.buddy/authentication)}
 
-   (keyword (str project-ns ".handler/config"))
+   (keyword (str project-ns ".api/config"))
    {:iss (env/env '["OIDC_ISSUER_URL" Str])
     :client-id (env/env '["OIDC_AUDIENCE" Str])}
 
