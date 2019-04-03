@@ -14,7 +14,7 @@
     {:builds
      [{:source-paths ["src/"]
        :build-options
-       {:main (symbol (str project-ns ".client.main"))
+       {:main (symbol (str project-ns ".client"))
         :output-to (format "target/resources/%s/public/js/main.js" project-dirs)
         :output-dir (format "target/resources/%s/public/js" project-dirs)
         :asset-path "/js"
