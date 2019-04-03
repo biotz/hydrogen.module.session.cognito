@@ -14,8 +14,9 @@
    {:auth-middleware (ig/ref :duct.middleware.buddy/authentication)}
 
    (keyword (str project-ns ".api/config"))
-   {:iss (env/env '["OIDC_ISSUER_URL" Str])
-    :client-id (env/env '["OIDC_AUDIENCE" Str])}
+   {:cognito
+    {:iss (env/env '["OIDC_ISSUER_URL" Str])
+     :client-id (env/env '["OIDC_AUDIENCE" Str])}}
 
    :magnet.buddy-auth/jwt-oidc
    {:claims
