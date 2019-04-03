@@ -10,7 +10,7 @@ It implements two modules for [Duct](https://github.com/duct-framework/duct).
 
 To install, add the following to your project `:dependencies`:
 
-    [hydrogen/module.cljs "0.1.0"]
+    [hydrogen/module.cljs "0.1.1"]
 
 ## Usage
 
