@@ -14,4 +14,8 @@
                         ["releases"  {:url "https://clojars.org/repo"
                                       :username :env/clojars_username
                                       :password :env/clojars_password
-                                      :sign-releases false}]])
+                                      :sign-releases false}]]
+  :profiles
+  {:dev          [:project/dev :profiles/dev]
+   :profiles/dev {}
+   :project/dev  {:plugins [[lein-cljfmt "0.6.2"]]}})
