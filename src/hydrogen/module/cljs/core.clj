@@ -51,21 +51,26 @@
                                           'day8.re-frame-10x.preload]
                                :optimizations :none}}]}))
 
+(defn- core-config-base [config options project-ns environment]
+  {:duct.middleware.web/defaults {:security {:anti-forgery false}}
+   :duct.handler/root {:middleware [(ig/ref :duct.middleware.web/format)]}
+   :duct.middleware.web/format {}
+
+   (keyword (str project-ns ".static/root")) {}
+
+   :duct.compiler/sass {:source-paths ["resources"]
+                        :output-path "target/resources"}
+
+   :duct.compiler/cljs (duct-compiler-cljs environment config options)})
+
 (defn- core-config [config options]
   (let [project-ns (util/project-ns config options)
         environment (util/get-environment config options)]
     (cond->
-      {:duct.middleware.web/defaults {:security {:anti-forgery false}}
-       :duct.handler/root {:middleware [(ig/ref :duct.middleware.web/format)]}
-       :duct.middleware.web/format {}
+      (core-config-base config options project-ns environment)
 
-       (keyword (str project-ns ".static/root")) {}
-       (keyword (str project-ns ".api/example")) {}
-
-       :duct.compiler/sass {:source-paths ["resources"]
-                            :output-path "target/resources"}
-
-       :duct.compiler/cljs (duct-compiler-cljs environment config options)}
+      (:add-example-api? options)
+      (assoc (keyword (str project-ns ".api/example")) {})
 
       (= environment :development)
       (assoc :duct.server/figwheel
