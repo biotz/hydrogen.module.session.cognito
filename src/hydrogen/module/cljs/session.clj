@@ -28,7 +28,7 @@
 
 (defn- session-config [options project-ns]
   (cond->
-    (session-config-base project-ns)
+   (session-config-base project-ns)
 
     (:add-example-api? options)
     (assoc (keyword (str project-ns ".api/example"))

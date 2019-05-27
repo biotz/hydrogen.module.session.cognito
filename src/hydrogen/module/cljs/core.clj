@@ -4,8 +4,8 @@
             [hydrogen.module.cljs.util :as util]))
 
 (defmulti ^:private duct-compiler-cljs
-          (fn [environment _ _]
-            environment))
+  (fn [environment _ _]
+    environment))
 
 (defn- externs-paths [options project-dirs]
   (or (:externs-paths options)
@@ -67,7 +67,7 @@
   (let [project-ns (util/project-ns config options)
         environment (util/get-environment config options)]
     (cond->
-      (core-config-base config options project-ns environment)
+     (core-config-base config options project-ns environment)
 
       (:add-example-api? options)
       (assoc (keyword (str project-ns ".api/example")) {})
