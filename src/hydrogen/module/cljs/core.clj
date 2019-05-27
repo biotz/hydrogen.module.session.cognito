@@ -7,6 +7,10 @@
           (fn [environment _ _]
             environment))
 
+(defn- externs-paths [options project-dirs]
+  (or (:externs-paths options)
+      [(format "src/%s/client/externs.js" project-dirs)]))
+
 (defmethod duct-compiler-cljs :production
   [_ config options]
   (let [project-ns (util/project-ns config options)
@@ -21,7 +25,7 @@
         :closure-defines {:goog.DEBUG false}
         :aot-cache true
         :verbose true
-        :externs [(format "src/%s/client/externs.js" project-dirs)]
+        :externs (externs-paths options project-dirs)
         :optimizations :advanced}}]}))
 
 (defmethod duct-compiler-cljs :development
