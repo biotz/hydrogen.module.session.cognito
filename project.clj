@@ -1,4 +1,4 @@
-(defproject hydrogen/module.cljs "0.1.3"
+(defproject hydrogen/module.cljs "0.1.4"
   :description "Duct modules for doing cljs-based SPA applications the Hydrogen way."
   :url "https://github.com/magnetcoop/hydrogen.module.cljs"
   :license {:name "Mozilla Public Licence 2.0"

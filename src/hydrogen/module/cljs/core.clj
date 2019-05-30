@@ -3,16 +3,15 @@
             [integrant.core :as ig]
             [hydrogen.module.cljs.util :as util]))
 
-(defmulti ^:private duct-compiler-cljs
-  (fn [environment _ _]
-    environment))
+(defn- externs-paths [options environment]
+  {:post [(vector? %)
+          (every? string? %)]}
+  (when-let [externs-paths (:externs-paths options)]
+    (if (map? externs-paths)
+      (get externs-paths environment) externs-paths)))
 
-(defn- externs-paths [options project-dirs]
-  (or (:externs-paths options)
-      [(format "src/%s/client/externs.js" project-dirs)]))
-
-(defmethod duct-compiler-cljs :production
-  [_ config options]
+(defn- compiler-config
+  [config options]
   (let [project-ns (util/project-ns config options)
         project-dirs (util/project-dirs config options)]
     {:builds
@@ -25,33 +24,37 @@
         :closure-defines {:goog.DEBUG false}
         :aot-cache true
         :verbose true
-        :externs (externs-paths options project-dirs)
+        :externs (or (externs-paths options :production)
+                     [(format "src/%s/client/externs.js" project-dirs)])
         :optimizations :advanced}}]}))
 
-(defmethod duct-compiler-cljs :development
-  [_ _ _]
-  {})
-
-(defn- duct-server-figwheel
-  [config options]
+(defn- duct-server-figwheel-build-options [config options]
   (let [project-ns (util/project-ns config options)
-        project-dirs (util/project-dirs config options)]
+        project-dirs (util/project-dirs config options)
+        externs (externs-paths options :development)]
+    (cond->
+     {:main (symbol (str project-ns ".client"))
+      :output-to (format "target/resources/%s/public/js/main.js" project-dirs)
+      :output-dir (format "target/resources/%s/public/js" project-dirs)
+      :asset-path "/js"
+      :closure-defines {'goog.DEBUG true
+                        "re_frame.trace.trace_enabled_QMARK_" true}
+      :verbose false
+      :preloads ['devtools.preload
+                 'day8.re-frame-10x.preload]
+      :optimizations :none}
+      externs (assoc :externs externs))))
+
+(defn- figwheel-config
+  [config options]
+  (let [project-dirs (util/project-dirs config options)]
     {:css-dirs [(format "target/resources/%s/public/css" project-dirs)]
      :builds [{:id "dev"
                :figwheel {:on-jsload (format "%s.client/mount-root" project-dirs)}
                :source-paths ["dev/src" "src"]
-               :build-options {:main (symbol (str project-ns ".client"))
-                               :output-to (format "target/resources/%s/public/js/main.js" project-dirs)
-                               :output-dir (format "target/resources/%s/public/js" project-dirs)
-                               :asset-path "/js"
-                               :closure-defines {'goog.DEBUG true
-                                                 "re_frame.trace.trace_enabled_QMARK_" true}
-                               :verbose false
-                               :preloads ['devtools.preload
-                                          'day8.re-frame-10x.preload]
-                               :optimizations :none}}]}))
+               :build-options (duct-server-figwheel-build-options config options)}]}))
 
-(defn- core-config-base [config options project-ns environment]
+(defn- core-config-base [project-ns]
   {:duct.middleware.web/defaults {:security {:anti-forgery false}}
    :duct.handler/root {:middleware [(ig/ref :duct.middleware.web/format)]}
    :duct.middleware.web/format {}
@@ -59,22 +62,22 @@
    (keyword (str project-ns ".static/root")) {}
 
    :duct.compiler/sass {:source-paths ["resources"]
-                        :output-path "target/resources"}
-
-   :duct.compiler/cljs (duct-compiler-cljs environment config options)})
+                        :output-path "target/resources"}})
 
 (defn- core-config [config options]
   (let [project-ns (util/project-ns config options)
         environment (util/get-environment config options)]
     (cond->
-     (core-config-base config options project-ns environment)
+     (core-config-base project-ns)
 
       (:add-example-api? options)
       (assoc (keyword (str project-ns ".api/example")) {})
 
       (= environment :development)
       (assoc :duct.server/figwheel
-             (duct-server-figwheel config options)))))
+             (figwheel-config config options))
+      (= environment :production)
+      (assoc :duct.compiler/cljs (compiler-config config options)))))
 
 (defmethod ig/init-key :hydrogen.module.cljs/core [_ options]
   (fn [config]
