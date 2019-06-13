@@ -1,7 +1,12 @@
-# Changelog
+ # Changelog
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
+
+## [0.1.5] - 2019-06-13
+
+### Changed
+- Split concerns of ancestor `:hydrogen.module.cljs` into separate repos.
 
 ## [0.1.4] - 2019-05-29
 
@@ -28,3 +33,4 @@ To retain it, you have to add `:add-example-api? true` to the config options.
 
 [0.1.3]: https://github.com/magnetcoop/hydrogen.module.cljs/releases/tag/v0.1.3
 [0.1.4]: https://github.com/magnetcoop/hydrogen.module.cljs/releases/tag/v0.1.4
+[0.1.5]: https://github.com/magnetcoop/hydrogen.module.session.cognito/releases/tag/v0.1.5

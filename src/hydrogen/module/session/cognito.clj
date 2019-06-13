@@ -1,8 +1,10 @@
-(ns hydrogen.module.cljs.session
+(ns hydrogen.module.session.cognito
   (:require [duct.core :as core]
             [duct.core.env :as env]
-            [integrant.core :as ig]
-            [hydrogen.module.cljs.util :as util]))
+            [integrant.core :as ig]))
+
+(defn project-ns [config options]
+  (:project-ns options (:duct.core/project-ns config)))
 
 (defn- session-config-base [project-ns]
   {[:duct/const :magnet.aws/credentials]
@@ -34,7 +36,8 @@
     (assoc (keyword (str project-ns ".api/example"))
            {:auth-middleware (ig/ref :duct.middleware.buddy/authentication)})))
 
-(defmethod ig/init-key :hydrogen.module.cljs/session [_ options]
+(defmethod ig/init-key :hydrogen.module/session.cognito [_ options]
   (fn [config]
-    (let [project-ns (util/project-ns config options)]
+    (let [project-ns (project-ns config options)]
       (core/merge-configs config (session-config options project-ns)))))
+
