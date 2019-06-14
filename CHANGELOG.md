@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+### Added
+- Document that the module adds some Integrant keys to the config, and what they are used for.
+
 ## [0.1.7] - 2019-06-14
 
 This release fixes my erroneous version 0.1.6 deployment.
