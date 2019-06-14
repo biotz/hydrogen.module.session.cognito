@@ -1,4 +1,4 @@
-(defproject hydrogen/module.session.cognito "0.1.7-SNAPSHOT"
+(defproject hydrogen/module.session.cognito "0.1.7"
   :description "Duct module for OIDC-based session management in Hydrogen app"
   :url "https://github.com/magnetcoop/hydrogen.module.session.cognito"
   :license {:name "Mozilla Public Licence 2.0"
