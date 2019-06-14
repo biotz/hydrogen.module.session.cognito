@@ -7,12 +7,7 @@
   (:project-ns options (:duct.core/project-ns config)))
 
 (defn- session-config-base [project-ns]
-  {[:duct/const :magnet.aws/credentials]
-   {:access-key-id (env/env '["AWS_ACCESS_KEY_ID" Str])
-    :secret-access-key (env/env '["AWS_SECRET_ACCESS_KEY" Str])
-    :default-region (env/env '["AWS_DEFAULT_REGION" Str :or "eu-west-1"])}
-
-   (keyword (str project-ns ".api/config"))
+  {(keyword (str project-ns ".api/config"))
    {:cognito
     {:iss (env/env '["OIDC_ISSUER_URL" Str])
      :client-id (env/env '["OIDC_AUDIENCE" Str])}}
