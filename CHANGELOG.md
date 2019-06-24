@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - Document that the module adds some Integrant keys to the config, and what they are used for.
 - tests
+- Now you can configure this module to specify where does the necessary data come from.
 
 ## [0.1.7] - 2019-06-14
 
