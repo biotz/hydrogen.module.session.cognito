@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.1.8] - 2019-06-24
+
 ### Added
 - Document that the module adds some Integrant keys to the config, and what they are used for.
 - tests
@@ -54,4 +56,5 @@ To retain it, you have to add `:add-example-api? true` to the config options.
 [0.1.5]: https://github.com/magnetcoop/hydrogen.module.session.cognito/releases/tag/v0.1.5
 [0.1.6]: https://github.com/magnetcoop/hydrogen.module.session.cognito/compare/v0.1.5...v0.1.6/
 [0.1.7]: https://github.com/magnetcoop/hydrogen.module.session.cognito/compare/v0.1.6...v0.1.7/
-[UNRELEASED]: https://github.com/magnetcoop/hydrogen.module.session.cognito/compare/v0.1.7...HEAD
+[0.1.8]: https://github.com/magnetcoop/hydrogen.module.session.cognito/compare/v0.1.7...v0.1.8/
+[UNRELEASED]: https://github.com/magnetcoop/hydrogen.module.session.cognito/compare/v0.1.8...HEAD
