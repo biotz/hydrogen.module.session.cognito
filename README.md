@@ -1,3 +1,5 @@
+## NOTE: This repo got deprecated. We migrated to [hydrogen.duct-template](https://github.com/magnetcoop/hydrogen.duct-template)
+
 # hydrogen.module.session.cognito for Duct
 
 It implements a module for [Duct](https://github.com/duct-framework/duct).
